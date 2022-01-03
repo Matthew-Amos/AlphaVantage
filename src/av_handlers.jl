@@ -4,6 +4,10 @@
 `postprocess` transforms a successful API result, beginning with a Vector{UInt8}.
 """
 
+# TODO: preprocessor - parameter validations, datatype preferences
+# TODO: postprocessor - sinks
+
+# Utilities
 "Ensure 'datatype' parameter is json or csv"
 function _params_datatype(d::D where D <: Dict{String})
     dt = get(d, "datatype", "json")
@@ -29,6 +33,7 @@ function _resp_tostring(resp)
     String(resp)
 end
 
+# Handlers
 "Preprocesses API query parameters"
 function preprocess(f::A where A <: AVFunction, params=Dict{String, Any}())
     params = _params_datatype(params)

@@ -8,6 +8,8 @@ AVFunction (see av_types.jl), and a Dict of query parameters. It executes the HT
 as well as dispatches to appropriate preprocessor and postprocessor functions (see av_handlers.jl).
 """
 
+# TODO: request retry
+
 "Contains basic HTTP information for connecting to AlphaVantage API."
 struct AlphaVantageClient
     scheme::String
