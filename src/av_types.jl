@@ -1,6 +1,8 @@
 """
-Full type hierarchy intended to be a 1:1 relationship with the functions listed in
-the AlphaVantage documentation: https://www.alphavantage.co/documentation/
+Full type hierarchy intended to be mostly a 1:1 relationship with the functions listed in
+the AlphaVantage documentation: https://www.alphavantage.co/documentation/.
+
+Forex and Crypto have been grouped together under AVCurrency since they are very similar.
 """
 
 # Abstracts
