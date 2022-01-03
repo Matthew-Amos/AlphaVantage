@@ -23,17 +23,7 @@ _api_key(k=get(ENV, ENV_VARIABLE_API_KEY, "")) = if k == "" DEFAULT_API_KEY else
 AlphaVantageClient(;scheme=HTTP_SCHEME, host=HTTP_HOST, key=_api_key()) = AlphaVantageClient(scheme, host, key)
 
 "Dynamically creates and evaluates an HTTP.URI call for a given API request."
-function _create_uri(c::AlphaVantageClient, q::D where D <: Dict{String})
-    string(eval( Expr(
-        :call,
-        [
-            :(HTTP.URI),
-            :($(Expr(:kw, :scheme, c.scheme))),
-            :($(Expr(:kw, :host, c.host))),
-            :($(Expr(:kw, :query, q)))
-        ]
-    ) ))
-end
+_create_uri(c::AlphaVantageClient, q::D where D <: Dict{String}) = string(HTTP.URI(scheme=c.scheme, host=c.host, query=q))
 
 # `Base.get` method dispatching
 function Base.get(c::AlphaVantageClient, params)
