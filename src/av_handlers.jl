@@ -1,7 +1,10 @@
 """
-`preprocess` acts upon a Dict of query parameters.
+The internal mechanics for handling API calls are to dispatch information to
+`preprocess` and `postprocess` functions based on data types found in "av_types.jl".
 
-`postprocess` transforms a successful API result, beginning with a Vector{UInt8}.
+    `preprocess` acts upon a Dict of query parameters.
+
+    `postprocess` transforms a successful API result, beginning with a Vector{UInt8}.
 """
 
 # TODO: preprocessor - parameter validations, datatype preferences
