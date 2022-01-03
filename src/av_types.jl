@@ -5,6 +5,8 @@ the AlphaVantage documentation: https://www.alphavantage.co/documentation/.
 Forex and Crypto have been grouped together under AVCurrency since they are very similar.
 """
 
+# TODO: link to documentation in docstrings?
+
 # Abstracts
 abstract type AVFunction end
 abstract type AVTimeSeries <: AVFunction end
