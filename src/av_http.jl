@@ -4,8 +4,8 @@ This submodule contains the HTTP interface to the AlphaVantage API.
 `AlphaVantageClient` owns the data needed to construct the GET request.
 
 A `Base.get` method takes the above client, a data type parameter that inherits from
-AVFunction (see av_types.jl), and a Dict of query parameters. It initials the HTTP request
-as well as dispatches the query parameters and results to appropriate handlers (see av_handlers.jl).
+AVFunction (see av_types.jl), and a Dict of query parameters. It executes the HTTP request
+as well as dispatches to appropriate preprocessor and postprocessor functions (see av_handlers.jl).
 """
 
 "Contains basic HTTP information for connecting to AlphaVantage API."
