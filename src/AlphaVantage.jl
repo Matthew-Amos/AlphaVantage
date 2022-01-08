@@ -6,7 +6,7 @@ const ENV_VARIABLE_API_KEY = "ALPHA_VANTAGE_API_KEY"
 const DEFAULT_API_KEY = "demo"
 
 using HTTP
-using CSV
+using CSV, JSON
 using DataFrames
 using ArgCheck
 
