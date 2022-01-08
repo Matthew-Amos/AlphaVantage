@@ -86,7 +86,8 @@ Returns a modified _params_ `Dict`.
 
 __`postprocess(f::A where A <: AVFunction, resp)`__
 
-Returns a modified _resp_. Initially, _resp_ will be a `Vector{UInt8}`.
+Returns a modified _resp_. Initially, _resp_ will be a `Vector{UInt8}` copy
+from the HTTP response body.
 
 # Response Formats
 
