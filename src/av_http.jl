@@ -35,7 +35,6 @@ AlphaVantageClient(;scheme=HTTP_SCHEME, host=HTTP_HOST, key=_api_key()) = AlphaV
 _create_uri(c::AlphaVantageClient, q::D where D <: Dict{String}) = string(HTTP.URI(scheme=c.scheme, host=c.host, query=q))
 
 # `Base.get` method dispatching
-# TODO: request retry
 function Base.get(c::AlphaVantageClient, params)
     req = HTTP.request("GET", _create_uri(c, params))
     
