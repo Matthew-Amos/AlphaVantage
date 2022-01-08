@@ -20,15 +20,15 @@ for a free API key.
 
 __API Key Environment Variable__
 
-For your respective system, have an environment variable
-`ALPHA_VANTAGE_API_KEY` set. For example, in linux add the following to
+For your respective system, define the environment variable
+`ALPHA_VANTAGE_API_KEY`. For example, in linux add the following to
 .bashrc:
 
 ```bash
 export ALPHA_VANTAGE_API_KEY="your_key_here"
 ```
 
-If an environment variable is not set, you can manually specify it as described
+If an environment variable is not set you can manually specify it as described
 below.
 
 # Use
@@ -51,7 +51,7 @@ client = AlphaVantageClient(;key="your_key_here")
 __Making API Calls__
 
 API calls are made via `Base.get(c::AlphaVantageClient, f::AVFunction,
-p::Dict{String}`.
+p::Dict{String})`.
 
 - All request parameters should be represented in a `Dict{String}`. For
   example, `Dict("symbol" => "IBM")`.
@@ -63,8 +63,6 @@ the parameter dictionary as this is handled automatically.
 - You also do not need to specify the _apicall_ parameter in the dictionary as
   this is also inserted automatically.
 
-Sensible defaults will be imposed on your parameter dictionary as well as the
-returned results.
 
 ```julia
 # TIME_SERIES_MONTHLY_ADJUSTED call
@@ -75,6 +73,20 @@ ts = get(client, TIME_SERIES_MONTHLY_ADJUSTED, p)
 # this will also work:
 # ts = get(client, TIME_SERIES_MONTHLY_ADJUSTED(), p) 
 ```
+
+# Default Pre and Post Processing
+
+Sensible defaults will be imposed on your parameter dictionary as well as the
+returned results. If desired, this behavior can be altered by overriding
+appropriate methods of the following functions.
+
+__`preprocess(f::A where A <: AVFunction, params)`__
+
+Returns a modified _params_ `Dict`.
+
+__`postprocess(f::A where A <: AVFunction, resp)`__
+
+Returns a modified _resp_. Initially, _resp_ will be a `Vector{UInt8}`.
 
 # Response Formats
 
