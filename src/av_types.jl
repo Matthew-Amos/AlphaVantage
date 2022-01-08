@@ -5,8 +5,6 @@ the AlphaVantage documentation: https://www.alphavantage.co/documentation/.
 Forex and Crypto have been grouped together under AVCurrency since they are very similar.
 """
 
-# TODO: link to documentation in docstrings?
-
 # Abstracts
 abstract type AVFunction end
 abstract type AVTimeSeries <: AVFunction end
@@ -116,3 +114,5 @@ struct HT_TRENDMODE <: AVTechnicalIndicator end
 struct HT_DCPERIOD <: AVTechnicalIndicator end
 struct HT_DCPHASE <: AVTechnicalIndicator end
 struct HT_PHASOR <: AVTechnicalIndicator end
+
+Base.string(x::A where A <: AVFunction) = string(typeof(x))
