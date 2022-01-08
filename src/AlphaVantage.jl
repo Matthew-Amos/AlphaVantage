@@ -12,4 +12,7 @@ include("av_types.jl")
 include("av_http.jl")
 include("av_handlers.jl")
 
+export
+    AlphaVantageClient
+
 end # module
