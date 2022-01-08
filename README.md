@@ -60,7 +60,7 @@ p::Dict{String})`.
 `TIME_SERIES_INTRADAY` data type. These structs have no fields and have a 1:1
 naming convention. You do not need to specify the _function_ API parameter in
 the parameter dictionary as this is handled automatically.
-- You also do not need to specify the _apicall_ parameter in the dictionary as
+- You do not need to specify the _apicall_ parameter in the dictionary as
   this is also inserted automatically.
 
 
