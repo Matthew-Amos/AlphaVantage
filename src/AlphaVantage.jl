@@ -7,7 +7,7 @@ const DEFAULT_API_KEY = "demo"
 
 using HTTP
 using CSV
-using DataFrame
+using DataFrames
 using ArgCheck
 
 include("av_types.jl")
