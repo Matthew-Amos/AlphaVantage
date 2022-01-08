@@ -33,7 +33,7 @@ AlphaVantageClient(;scheme=HTTP_SCHEME, host=HTTP_HOST, key=_api_key()) = AlphaV
 AlphaVantageClient(k::String) = AlphaVantageClient(;key=k)
 
 "Dynamically creates and evaluates an HTTP.URI call for a given API request."
-_create_uri(c::AlphaVantageClient, q::D where D <: Dict{String}) = string(HTTP.URI(scheme=c.scheme, host=c.host, query=q))
+_create_uri(c::AlphaVantageClient, q::Dict{String}) = string(HTTP.URI(scheme=c.scheme, host=c.host, query=q))
 
 # `Base.get` method dispatching
 function Base.get(c::AlphaVantageClient, params)
@@ -47,7 +47,7 @@ function Base.get(c::AlphaVantageClient, params)
   deepcopy(req.body)
 end
 
-function Base.get(c::AlphaVantageClient, f::A where A <: AVFunction, params=Dict{String, Any}())
+function Base.get(c::AlphaVantageClient, f::A where A <: AVFunction, params::Dict{String})
   params["function"] = string(f)
   params = preprocess(f, params)
   resp = get(c, params)
@@ -55,6 +55,6 @@ function Base.get(c::AlphaVantageClient, f::A where A <: AVFunction, params=Dict
   resp
 end
 
-function Base.get(c::AlphaVantageClient, f::DataType, params=Dict{String, Any}())
+function Base.get(c::AlphaVantageClient, f::DataType, params::Dict{String})
   get(c, f(), params)
 end
