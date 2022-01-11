@@ -41,7 +41,12 @@ end
 
 "Converts a response to a dataframe"
 function _resp_todataframe(resp)
-  CSV.File(resp) |> DataFrame
+  resp |> CSV.File |> DataFrame
+end
+
+"Converts a response to parsed JSON"
+function _resp_tojson(resp)
+  resp |> _resp_tostring |> JSON.parse
 end
 
 # General Handlers
@@ -72,7 +77,7 @@ function preprocess(f::A where A <: AVFundamental, params)
 end
 
 function postprocess(f::A where A <: AVFundamental, resp)
-  r = _resp_tostring(resp) |> JSON.parse
+  r = _resp_tojson(resp)
   
   if !all(["symbol", "annualReports", "quarterlyReports"] in keys(r))
     @warn "unexpected key structure in JSON response"
@@ -143,3 +148,88 @@ function postprocess(f::IPO_CALENDAR, resp)
   _resp_todataframe(respo)
 end
 
+# Currency Handlers
+function preprocess(f::A where A <: AVCurrency, params)
+  if "interval" in keys(params)
+    @argcheck params["interval"] in ["1min", "5min", "15min", "30min", "60min"]
+  end
+  
+  if "outputsize" in keys(params)
+    @argcheck params["outputsize"] in ["compact", "full"]
+  end
+
+  _params_force_csv(params)
+end
+
+function postprocess(f::A where A <: AVCurrency, resp)
+  _resp_todataframe(resp)
+end
+
+function preprocess(f::CURRENCY_EXCHANGE_RATE, params)
+  _params_no_datatype(params)
+end
+
+function postprocess(f::CURRENCY_EXCHANGE_RATE, resp)
+  _resp_tojson(resp)
+end
+
+function preprocess(f::AVC_PRICE, params)
+  _params_no_datatype(params)
+end
+
+function postprocess(f::AVC_PRICE, resp)
+  _resp_tojson(resp)
+end
+
+function preprocess(f::DIGITAL_CURRENCY_DAILY, params)
+  _params_no_datatype(params)
+end
+
+function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
+  r = _resp_tojson(resp)
+  #meta_key = keys(r)[1]
+  data_key = keys(r)[2]
+  
+  function kdf(d, v, i)
+    df = DataFrame(d[v][keys(d[v])[i]])
+    df[:, :T] .= keys(d[v])[i]
+    df
+  end
+
+  ts = vcat([kdf(r, data_key, i) for i in 1:length(keys(r[data_key]))]...)
+  ts
+end
+
+function preprocess(f::DIGITAL_CURRENCY_WEEKLY, params)
+  preprocess(DIGITAL_CURRENCY_DAILY(), params)
+end
+
+function postprocess(f::DIGITAL_CURRENCY_WEEKLY, resp)
+  postprocess(f::DIGITAL_CURRENCY_DAILY(), resp)
+end
+
+function preprocess(f::DIGITAL_CURRENCY_MONTHLY, params)
+  preprocess(DIGITAL_CURRENCY_DAILY(), params)
+end
+
+function postprocess(f::DIGITAL_CURRENCY_MONTHLY, resp)
+  postprocess(f::DIGITAL_CURRENCY_DAILY(), resp)
+end
+
+# Economic Indicator Handlers
+function preprocess(f::A where A <: AVEconomicIndicator, params)
+
+end
+
+function postprocess(f::A where A <: AVEconomicIndicator, resp)
+
+end
+
+# Technical Indicator Handlers
+function preprocess(f::A where A <: AVTechnicalIndicator, params)
+
+end
+
+function postprocess(f::A where A <: AVTechnicalIndicator, resp)
+
+end
