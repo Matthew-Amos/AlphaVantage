@@ -33,4 +33,20 @@ end
     @test typeof(ts) == DataFrame
     @test nrow(ts) > 0
   end
+
+  @testset "fundamentals" begin
+
+  end
+
+  @testset "currency" begin
+
+  end
+
+  @testset "economic" begin
+
+  end
+
+  @testset "technical" begin
+
+  end
 end

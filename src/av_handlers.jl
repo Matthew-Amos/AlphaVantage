@@ -187,12 +187,12 @@ end
 
 function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
   r = _resp_tojson(resp)
-  #meta_key = keys(r)[1]
-  data_key = keys(r)[2]
+  data_key = collect(keys(r))[2]
   
   function kdf(d, v, i)
-    df = DataFrame(d[v][keys(d[v])[i]])
-    df[:, :T] .= keys(d[v])[i]
+    ki = collect(keys(d[v]))[i]
+    df = DataFrame(d[v][ki])
+    df[:, :T] .= ki
     df
   end
 
