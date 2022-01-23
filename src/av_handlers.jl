@@ -218,18 +218,38 @@ end
 
 # Economic Indicator Handlers
 function preprocess(f::A where A <: AVEconomicIndicator, params)
+  if "interval" in keys(params)
+    @argcheck params["interval"] in ["daily", "weekly", "monthly", "semiannual", "quarterly", "annual"]
+  end
 
+  if "maturity" in keys(params)
+    @argcheck params["maturity"] in ["3month", "5year", "10year", "30year"]
+  end
+
+  _params_force_csv(params)
 end
 
 function postprocess(f::A where A <: AVEconomicIndicator, resp)
-
+  _resp_todataframe(resp)
 end
 
 # Technical Indicator Handlers
 function preprocess(f::A where A <: AVTechnicalIndicator, params)
+  if "interval" in keys(params)
+    @argcheck params["interval"] in ["1min", "5min", "15min", "30min", "60min", "daily", "weekly", "monthly"]
+  end
 
+  if "time_period" in keys(params)
+    is_int = typeof(params["time_period"]) <: Int
+    @assert is_int
+    if is_int
+      @assert sign(params["time_period"]) == 1
+    end
+  end
+
+  _params_force_csv(params)
 end
 
 function postprocess(f::A where A <: AVTechnicalIndicator, resp)
-
+  _resp_todataframe(resp)
 end
