@@ -182,22 +182,29 @@ function postprocess(f::AVC_PRICE, resp)
 end
 
 function preprocess(f::DIGITAL_CURRENCY_DAILY, params)
-  _params_no_datatype(params)
+  params |>
+    _params_force_csv |>
+    _params_no_datatype
 end
 
+# function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
+#   r = _resp_tojson(resp)
+#   data_key = sort(collect(keys(r)))[2]
+#
+#   function kdf(d, v, i)
+#     ki = collect(keys(d[v]))[i]
+#     df = DataFrame(d[v][ki])
+#     df[:, :T] .= ki
+#     df
+#   end
+#
+#   ts = vcat([kdf(r, data_key, i) for i in 1:length(keys(r[data_key]))]...)
+#   ts
+# end
+
 function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
-  r = _resp_tojson(resp)
-  data_key = sort(collect(keys(r)))[2]
-
-  function kdf(d, v, i)
-    ki = collect(keys(d[v]))[i]
-    df = DataFrame(d[v][ki])
-    df[:, :T] .= ki
-    df
-  end
-
-  ts = vcat([kdf(r, data_key, i) for i in 1:length(keys(r[data_key]))]...)
-  ts
+  r = _resp_todataframe(resp)
+  r
 end
 
 function preprocess(f::DIGITAL_CURRENCY_WEEKLY, params)
