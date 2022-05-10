@@ -78,7 +78,7 @@ end
 
 function postprocess(f::A where A <: AVFundamental, resp)
   r = _resp_tojson(resp)
-  
+
   if !all(["symbol", "annualReports", "quarterlyReports"] in keys(r))
     @warn "unexpected key structure in JSON response"
     return r
@@ -153,7 +153,7 @@ function preprocess(f::A where A <: AVCurrency, params)
   if "interval" in keys(params)
     @argcheck params["interval"] in ["1min", "5min", "15min", "30min", "60min"]
   end
-  
+
   if "outputsize" in keys(params)
     @argcheck params["outputsize"] in ["compact", "full"]
   end
@@ -187,8 +187,8 @@ end
 
 function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
   r = _resp_tojson(resp)
-  data_key = collect(keys(r))[2]
-  
+  data_key = sort(collect(keys(r)))[2]
+
   function kdf(d, v, i)
     ki = collect(keys(d[v]))[i]
     df = DataFrame(d[v][ki])
