@@ -201,19 +201,19 @@ function postprocess(f::DIGITAL_CURRENCY_DAILY, resp)
 end
 
 function preprocess(f::DIGITAL_CURRENCY_WEEKLY, params)
-  preprocess(DIGITAL_CURRENCY_DAILY(), params)
+  preprocess(DIGITAL_CURRENCY_DAILY, params)
 end
 
 function postprocess(f::DIGITAL_CURRENCY_WEEKLY, resp)
-  postprocess(f::DIGITAL_CURRENCY_DAILY(), resp)
+  postprocess(DIGITAL_CURRENCY_DAILY, resp)
 end
 
 function preprocess(f::DIGITAL_CURRENCY_MONTHLY, params)
-  preprocess(DIGITAL_CURRENCY_DAILY(), params)
+  preprocess(DIGITAL_CURRENCY_DAILY, params)
 end
 
 function postprocess(f::DIGITAL_CURRENCY_MONTHLY, resp)
-  postprocess(f::DIGITAL_CURRENCY_DAILY(), resp)
+  postprocess(DIGITAL_CURRENCY_DAILY, resp)
 end
 
 # Economic Indicator Handlers
