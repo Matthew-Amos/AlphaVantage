@@ -68,7 +68,7 @@ function preprocess(f::A where A <: AVTimeSeries, params)
 end
 
 function postprocess(f::A where A <: AVTimeSeries, resp)
-  _resp_todataframe(respo)
+  _resp_todataframe(resp)
 end
 
 # Fundamentals Handlers
@@ -97,7 +97,7 @@ function preprocess(f::OVERVIEW, params)
 end
 
 function postprocess(f::OVERVIEW, resp)
-  _resp_todataframe(respo)
+  _resp_todataframe(resp)
 end
 
 function preprocess(f::LISTING_STATUS, params)
@@ -123,7 +123,7 @@ function preprocess(f::LISTING_STATUS, params)
 end
 
 function postprocess(f::LISTING_STATUS, resp)
-  _resp_todataframe(respo)
+  _resp_todataframe(resp)
 end
 
 function preprocess(f::EARNINGS_CALENDAR, params)
@@ -137,7 +137,7 @@ function preprocess(f::EARNINGS_CALENDAR, params)
 end
 
 function postprocess(f::EARNINGS_CALENDAR, resp)
-  _resp_todataframe(respo)
+  _resp_todataframe(resp)
 end
 
 function preprocess(f::IPO_CALENDAR, params)
@@ -145,7 +145,7 @@ function preprocess(f::IPO_CALENDAR, params)
 end
 
 function postprocess(f::IPO_CALENDAR, resp)
-  _resp_todataframe(respo)
+  _resp_todataframe(resp)
 end
 
 # Currency Handlers
